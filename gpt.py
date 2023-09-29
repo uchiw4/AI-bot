@@ -39,20 +39,23 @@ def gpt(TOKEN,OPENAI_API_KEY):
         try:
             response = await generate_response(question)
             embed = Embed(title="Askme says :", description=response, color=0xeb2323)
-            await ctx.send(embed=embed)
+            embed.set_footer(text=f"Powered by OpenAI | Prompt from {ctx.author.name}")
+            await ctx.message.reply(embed=embed)
 
         except Exception as e:
             print(e)
-            await ctx.send("Sorry, there was an issue with generating your answear, please try again later.")
+            await ctx.message.reply("Sorry, there was an issue with generating your answear, please try again later.")
     @bot.command()
     async def imagine(ctx, *, prompt):
         try:
             imagined = await generate_image(prompt)
             embed = Embed(title="Here is your image :", description=prompt, color=0xeb2323)
+            embed.set_footer(text=f"Powered by OpenAI | Prompt from {ctx.author.name}")
             embed.set_image(url=imagined)
-            await ctx.send(embed=embed)
+            await ctx.message.reply(embed=embed)
+
 
         except Exception as e:
             print(e)
-            await ctx.send("Sorry, there was an issue with generating your answear, please try again later.")
+            await ctx.message.reply("Sorry, there was an issue with generating your answear, please try again later.")
     bot.run(TOKEN)
